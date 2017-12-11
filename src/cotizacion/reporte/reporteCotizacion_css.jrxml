@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" printOrder="Horizontal" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5d80a321-6c59-499f-8bb2-577946484503">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="consecutivo_cotizacion" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.io.InputStream">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/jarteaga/Documentos/SISTEMATIZACION UTDVVCC/Cotizacion/Implementacion/OrdenesCompraUTDVVCC/src/cotizacion/reporte/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="resumen" class="JasperReport">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="total" class="JasperReport">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select c.consecutivo_cotizacion,to_char(c.fecha_cotizacion, 'YYYY/MM/DD')as fecha,c.cargo_a, cc.nombre_ccostos,i.nombre_ccostos_cc ,d.item,d.detalle_prod_servicio,d.cantidad_prod_servicio, to_char(d.vlor_unitario,'999G999G999G999D99')as unitario,to_char(d.subtotal,'999G999G999G999D99')as subtotal,d.nit_proveedor, p.prove_razon_social,d.referencia
+
+FROM
+
+cotizaciones.cotizacion_cas c JOIN css.centro_costos cc ON c.centro_costos=cc.idccostoscc 
+JOIN css.item_ccostos_cc i ON c.item_ccostos=i.id_item_ccostos_cc
+JOIN cotizaciones.detalle_cotizacion_cas d ON c.consecutivo_cotizacion=d.consecutivo_cotizacion
+JOIN proveedores.proveedor p ON d.nit_proveedor=p.nit_proveedor
+
+
+
+WHERE c.consecutivo_cotizacion=$P{consecutivo_cotizacion}	
+
+ORDER BY d.item ASC]]>
+	</queryString>
+	<field name="consecutivo_cotizacion" class="java.lang.Integer"/>
+	<field name="fecha" class="java.lang.String"/>
+	<field name="cargo_a" class="java.lang.String"/>
+	<field name="nombre_ccostos" class="java.lang.String"/>
+	<field name="nombre_ccostos_cc" class="java.lang.String"/>
+	<field name="item" class="java.lang.Integer"/>
+	<field name="detalle_prod_servicio" class="java.lang.String"/>
+	<field name="cantidad_prod_servicio" class="java.lang.Double"/>
+	<field name="unitario" class="java.lang.String"/>
+	<field name="subtotal" class="java.lang.String"/>
+	<field name="nit_proveedor" class="java.lang.Long"/>
+	<field name="prove_razon_social" class="java.lang.String"/>
+	<field name="referencia" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="132" splitType="Stretch">
+			<rectangle>
+				<reportElement uuid="f451635a-6d09-49b2-9e03-2caa17691e97" x="1" y="82" width="803" height="46"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="1c99a90a-a839-4d90-be09-0c175c538e04" x="1" y="98" width="79" height="15"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Centro Costos:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c9ceb8c4-dddc-47ed-9e9b-57c909318d5a" x="414" y="98" width="104" height="15"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Item Centro Costos:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="1805d996-7d5a-40ad-af40-57417ffe6185" x="1" y="113" width="58" height="15"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cargo A:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="c7484cf1-f360-486b-99eb-9176f402ea0a" x="59" y="113" width="324" height="15"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cargo_a}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="0a10754d-1d31-4188-93a6-e1f90ae6bf94" x="0" y="82" width="48" height="15"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha:]]></text>
+			</staticText>
+			<image>
+				<reportElement uuid="2a17e231-75ff-4672-819b-58c468f13508" x="59" y="11" width="100" height="60"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement uuid="f9803620-8b6c-4ed7-a048-4cb6510da344" x="48" y="82" width="100" height="15"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8ac36767-9318-4b61-bf6d-e26fe4d8af04" x="80" y="98" width="303" height="15"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre_ccostos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="9e4bbe49-2197-42a4-9a5b-87671004a006" x="518" y="98" width="234" height="15"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre_ccostos_cc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="bada5726-4a35-4da5-ac34-e7d95163035e" x="498" y="82" width="100" height="15"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{consecutivo_cotizacion}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="2edb9d4c-96ac-472e-9f6c-017c5f6097e0" x="414" y="82" width="84" height="15"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cotización N°:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="759d6b3c-4e9e-4be3-88d9-d844eeeb51b0" x="368" y="51" width="98" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Nit: 5199222-1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f677f6eb-06ce-4226-8b33-48c19b48dca8" x="275" y="11" width="283" height="20"/>
+				<textElement>
+					<font fontName="Lucida Sans" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CARLOS ALBERTO SOLARTE SOLARTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a5f1d4b2-f79f-419c-953f-43887036deab" x="331" y="31" width="167" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Ingenieros Constructores]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="8838b2af-7bfd-4f8f-bdb1-4e9a4f83e2ca" x="0" y="109" width="802" height="1"/>
+			</line>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="18" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement uuid="be25ad9a-5a8e-4697-9141-84adb2e332b3" x="1" y="0" width="802" height="16" backcolor="#D5DDD9"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="4dc2592c-c166-401e-9eab-13743e821e7e" x="1" y="0" width="47" height="16"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Item]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d93916f7-e589-43a6-842a-e474aeb79500" x="49" y="0" width="151" height="16"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Detalle Prod y/o Servicio]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3995d5cd-b958-4cc7-bc9c-ec5f486d951c" x="313" y="0" width="51" height="16"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="02210316-77e0-4f7f-963d-50ce2a9681d9" x="370" y="0" width="96" height="16"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Vlor. Unitario $]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c8e4e7b1-13bb-44e6-a0c3-33a0dad3b162" x="480" y="0" width="52" height="16"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total $]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4d8a0f1c-0726-4fb2-b7e2-d1ee92c6249c" x="558" y="0" width="86" height="16"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nit Proveedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="fb699f5a-a681-47a3-83cd-91d88477ed50" x="702" y="0" width="80" height="16"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Razón Social]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3995d5cd-b958-4cc7-bc9c-ec5f486d951c" x="229" y="0" width="71" height="16"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Referencia]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement uuid="064ee179-04e0-43e5-ba1f-a94a0b493a3f" x="10" y="0" width="21" height="20"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{item}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="486d49c5-1523-4ebe-9520-eeb360593b79" x="319" y="0" width="51" height="20"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidad_prod_servicio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="8454d501-2197-47c1-8058-7e500df3c206" x="545" y="0" width="114" height="20"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nit_proveedor}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="a8692732-677d-4811-8171-46eddeb564d8" x="1" y="21" width="802" height="1"/>
+			</line>
+			<textField>
+				<reportElement uuid="665928d3-44bb-4b6d-a4d9-edfd8a40a172" x="370" y="0" width="92" height="20"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{unitario}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="6d2ecdd5-341f-45b4-9d84-035c93d67cad" x="659" y="0" width="143" height="20"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{prove_razon_social}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="6c5f96e6-f375-4b75-9235-d223e8a8f9d3" x="462" y="0" width="83" height="20"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{subtotal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ad9681ad-743d-4f98-a413-fb3af9cf3486" x="229" y="1" width="90" height="20"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{referencia}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="4bb0fb78-5c39-4ad1-8696-60a127523b9e" x="34" y="1" width="195" height="20"/>
+				<textElement>
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{detalle_prod_servicio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="128">
+			<staticText>
+				<reportElement uuid="431c0f12-5790-48e2-92c7-0b5e9f75066e" x="10" y="0" width="160" height="15"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cotizaciones de Mejor Opción]]></text>
+			</staticText>
+			<subreport>
+				<reportElement uuid="ce737003-5a3a-47f6-acef-7b9b54d73d0b" x="0" y="15" width="802" height="37"/>
+				<subreportParameter name="consecutivo_cotizacion">
+					<subreportParameterExpression><![CDATA[$P{consecutivo_cotizacion}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{resumen}]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement uuid="452ae6c6-e821-4ad1-b1a5-3c1d96e12214" x="-1" y="90" width="803" height="38"/>
+				<subreportParameter name="consecutivo_cotizacion">
+					<subreportParameterExpression><![CDATA[$P{consecutivo_cotizacion}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{total}]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

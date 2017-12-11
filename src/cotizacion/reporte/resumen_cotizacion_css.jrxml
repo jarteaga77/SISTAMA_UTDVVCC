@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="resumen_cotizacion_css" pageWidth="802" pageHeight="555" orientation="Landscape" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="3f672ffc-16fc-41a0-8079-52d41381b128">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="consecutivo_cotizacion" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select d.nit_proveedor, d.requisicion,to_char(d.subtotal,'999G999G999G999D99')as subtotal,to_char((d.subtotal * 0.16) + d.subtotal,'999G999G999G999D99') as iva, p.prove_razon_social 
+FROM cotizaciones.detalle_cotizacion d JOIN proveedores.proveedor p
+ON d.nit_proveedor=p.nit_proveedor
+
+WHERE d.estado=true AND d.consecutivo_cotizacion=$P{consecutivo_cotizacion}]]>
+	</queryString>
+	<field name="nit_proveedor" class="java.lang.Long"/>
+	<field name="requisicion" class="java.lang.Long"/>
+	<field name="subtotal" class="java.lang.String"/>
+	<field name="iva" class="java.lang.String"/>
+	<field name="prove_razon_social" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="29" splitType="Stretch">
+			<rectangle radius="10">
+				<reportElement uuid="68ff968a-ad6b-4377-a997-41a29be3195e" x="0" y="8" width="702" height="20" backcolor="#D5DDD9"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="ed9860ab-fa8c-4662-b3ed-3954d44b9a09" x="14" y="8" width="103" height="20"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nit Proovedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="495b94a9-7552-4284-aab9-e92406da1e89" x="608" y="8" width="77" height="20"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Requisición]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="747b881f-34cc-4b4f-9475-3d1fa765d3df" x="437" y="8" width="69" height="20"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor sin iva]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5931ae7b-496d-461b-b6cd-e03b71316e0e" x="519" y="8" width="66" height="20"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor con iva]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ce835d3e-a9b2-4613-92ea-76c1f9a75dc4" x="200" y="8" width="95" height="20"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Razón Social]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement uuid="61e83db2-4179-4e44-903f-5292bf94040e" x="608" y="0" width="77" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{requisicion}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="a99e2594-aaa1-41f4-a0cc-069de1702d7b" x="158" y="0" width="267" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{prove_razon_social}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="9a0e6152-486e-4a82-81b0-91a1c7bcb19f" x="0" y="18" width="702" height="2"/>
+			</line>
+			<textField>
+				<reportElement uuid="944b52bb-c487-4f36-9a92-804eaab8299c" x="516" y="1" width="92" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{iva}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2b462b7f-b7f7-4a95-8853-9e22be40bd52" x="14" y="0" width="144" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nit_proveedor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="553fd5dc-c494-4622-a949-6aea4c7aad0c" x="425" y="0" width="91" height="20"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{subtotal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

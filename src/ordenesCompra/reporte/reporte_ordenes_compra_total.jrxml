@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporte_ordenes_compra_total" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="84ce3f17-74bc-4b31-9640-d59e84fcf090">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="orden" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT to_char(SUM(d.dto_comercial),'999G999G999G999D99') as dto_comercial,to_char(o.dto_financiero,'999G999G999G999D99') as dto_finan,to_char(SUM(d.subtotal),'999G999G999G999D99') as subtotal,to_char(SUM(d.iva),'999G999G999G999D99') as iva,to_char(SUM(d.total)-(o.dto_financiero),'999G999G999G999D99') AS total
+
+FROM ordenescompra.orden_compra o JOIN ordenescompra.detalle_orden_compra d on d.consecutivo_ordencompra=o.consecutivo_orden_compra 
+WHERE o.consecutivo_orden_compra=$P{orden}
+GROUP BY o.dto_comercial,o.dto_financiero,o.total_orden,o.iva]]>
+	</queryString>
+	<field name="dto_comercial" class="java.lang.String"/>
+	<field name="dto_finan" class="java.lang.String"/>
+	<field name="subtotal" class="java.lang.String"/>
+	<field name="iva" class="java.lang.String"/>
+	<field name="total" class="java.lang.String"/>
+	<group name="orden total">
+		<groupExpression><![CDATA[$F{dto_comercial}]]></groupExpression>
+	</group>
+	<summary>
+		<band height="62">
+			<textField pattern="">
+				<reportElement uuid="8a3cfeb2-02d4-4726-8efd-5991ce661e8d" x="144" y="12" width="111" height="12"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dto_comercial}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement uuid="cc356b05-29bf-40b6-895f-d8ba99aed56e" x="144" y="24" width="111" height="12"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dto_finan}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement uuid="5cd12d3e-29b4-4b9f-873c-2c09993e3e42" x="144" y="0" width="111" height="12"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{subtotal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement uuid="a407bf55-cd7b-4386-b988-cb31711ddfc4" x="144" y="36" width="111" height="12"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{iva}]]></textFieldExpression>
+			</textField>
+			<textField pattern="">
+				<reportElement uuid="d3a878b5-7048-40a1-b4e5-0b1248fb4b63" x="144" y="49" width="111" height="12"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="86a39d35-eb28-4382-95d7-3fe48fd4f860" x="0" y="0" width="50" height="12"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Subtotal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b93de151-c571-4aa7-bf4b-caa870153c75" x="0" y="24" width="87" height="12"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dto. Financiero]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="12368afa-c4cf-45ee-8e91-03b3a47cf0c3" x="0" y="37" width="28" height="12"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IVA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="de195c28-0b33-4aff-a912-cd3b782483a0" x="0" y="49" width="49" height="12"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7c11f6f1-f930-415d-a0ee-a93808b14d46" x="0" y="12" width="61" height="12"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descuento]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="555" pageHeight="802" columnWidth="535" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="6355fc42-4e1c-45e4-a8b4-da093255ca73">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="orden" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT item_det_orden,descripcion,cantidad FROM ordenescompra.detalle_orden_compra_css WHERE consecutivo_ordencompra=$P{orden} ORDER BY item_det_orden ASC]]>
+	</queryString>
+	<field name="item_det_orden" class="java.lang.Integer"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="cantidad" class="java.lang.Integer"/>
+	<columnHeader>
+		<band height="13" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="7df5c2a7-e772-49d5-bf4b-c180f7de943f" x="0" y="0" width="28" height="12"/>
+				<textElement>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Item]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d502ed02-9c27-46d7-b465-a8a3bb01ce1e" x="168" y="0" width="39" height="12"/>
+				<textElement>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="28487e43-3d20-496d-a436-3f45db329db7" x="63" y="0" width="52" height="12"/>
+				<textElement>
+					<font size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Factura N°]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField>
+				<reportElement uuid="b23e735e-c2f4-494a-9198-19df789cc56a" x="0" y="0" width="25" height="12"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{item_det_orden}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="02cfb050-6fad-4794-9eab-7cf5a158dc53" x="189" y="0" width="42" height="12"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="0f2982ee-ce6c-43fc-b277-416d50187f24" x="186" y="0" width="2" height="12"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<text><![CDATA[/]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="a41ab2ae-e3b3-4f7a-a679-e60eedc6b877" x="0" y="12" width="555" height="1"/>
+			</line>
+		</band>
+	</detail>
+</jasperReport>
